@@ -13,7 +13,7 @@
     
      <nav>
         <div class="logo">
-         <h1>MUHAMMAD</h1>
+         <h1>MZF</h1>
         </div>
         <UL>
             <li><a href="#home">Home</a></li>
@@ -36,7 +36,7 @@
       <h1>MUHAMMAD ZIAN FAUZAN</h1>
       <h3>MAHASISWA TEKNIK INFORMATIKA</h3>
       <h2>(253040009)</h2>
-      <h2>Selamat datang di portofolio saya. Setiap halaman mencerminkan proses belajar, kreativitas, dan semangat untuk terus berkembang.</h2>
+      <h4>Selamat datang di portofolio saya. Setiap halaman mencerminkan proses belajar, kreativitas, dan semangat untuk terus berkembang.</h4>
      </div>
     </section>
 
@@ -117,12 +117,16 @@
     <section id="contact">
       <div class="container">
        <h2>CONTACT ME</h2>
-       <form class="contact-form">
-        <input type="text" placeholder="Nama" required>
-        <input type="email" placeholder="Email" required>
-        <textarea placeholder="Pesan" rows="5" required></textarea>
+       <form name="mzf-contact-form" class="contact-form">
+        <input type="text" placeholder="Nama" required name="nama">
+        <input type="email" placeholder="Email" required name="email">
+        <textarea placeholder="Pesan" rows="5" required name="pesan"></textarea>
         <button type="submit">Kirim Pesan</button>
        </form>
+       <p id="successMsg"
+   style="display:none; color:#22c55e; text-align:center; margin-top:15px;">
+  Pesan berhasil dikirim. Terima kasih!
+</p>
       </div>
     </section>
 
@@ -137,6 +141,29 @@
     </footer>
 
     <script src="JS/script.js"></script>
+
+    <script>
+  const scriptURL =
+    'https://script.google.com/macros/s/AKfycby3-vyfG0LUS_1VZiTcRNSLUv4ZND3LfdcNOZkZ1yTMHv23wnzT_WerxvCwYxoZT252IA/exec';
+  const form = document.forms['mzf-contact-form'];
+  const successMsg = document.getElementById('successMsg');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+      .then(response => {
+        console.log('Success!', response);
+
+        form.reset();                 
+        successMsg.style.display = 'block'; 
+
+        setTimeout(() => {
+          successMsg.style.display = 'none';
+        }, 4000);
+      })
+      .catch(error => console.error('Error!', error.message));
+  });
+</script>
     
 </body>
 </html>
